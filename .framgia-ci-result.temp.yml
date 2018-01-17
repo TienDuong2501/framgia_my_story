@@ -1,0 +1,28 @@
+eslint:
+  comment: true
+  exit_code: 1
+  ignore: true
+pdepend:
+  comment: true
+  exit_code: 1
+  ignore: true
+phpcpd:
+  comment: true
+  exit_code: 1
+  ignore: true
+phpcs:
+  comment: true
+  exit_code: 2
+  ignore: false
+phpmd:
+  comment: true
+  exit_code: 1
+  ignore: true
+phpmetrics:
+  comment: true
+  exit_code: 1
+  ignore: true
+phpunit:
+  comment: true
+  exit_code: 0
+  ignore: false
