@@ -4,8 +4,8 @@ return [
     'password' => 'Password',
     'email' => 'E-Mail Address',
     'remember_me' => 'Remember Me',
-    'login' => 'Login',
-    'forgot_password' => 'Login',
+    'login' => 'Sign In',
+    'forgot_password' => 'Forgot Password ?',
+    'username' => 'Username',
     
-
 ];
