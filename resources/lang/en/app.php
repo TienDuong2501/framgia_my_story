@@ -8,15 +8,11 @@ return [
     'notification' => 'You are logged in!',
     'title' => 'Laravel',
     'home' => 'Home',
-    'login' => 'Register',
+    'login' => 'Login',
     'documentation' => 'Documentation',
     'laracast' => 'Laracasts',
     'news' => 'News',
     'forge' => 'Forge',
     'github' => 'GitHub',
-
-
-    
-    
-
+    'admin' => 'Admin',
 ];
