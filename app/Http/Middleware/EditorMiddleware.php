@@ -3,22 +3,22 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class RedirectIfAuthenticated
+class EditorMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            return redirect('/');
+        if (!Auth::check() || Auth::user()->role == 'user')
+        {
+            return redirect('login');
         }
         return $next($request);
     }
