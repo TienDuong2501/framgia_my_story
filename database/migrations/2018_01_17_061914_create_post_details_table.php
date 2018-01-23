@@ -21,6 +21,9 @@ class CreatePostDetailsTable extends Migration
             $table->text('body');
             $table->string('status')->default('pending');
             $table->timestamps();
+            $table->foreign('post_id')
+                  ->references('id')->on('posts')
+                  ->onDelete('cascade');
         });
     }
 

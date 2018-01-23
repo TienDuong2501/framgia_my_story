@@ -1,0 +1,22 @@
+{
+  "name": "framgia_my_story",
+  "description": "",
+  "main": "",
+  "authors": [
+    "DuongNT <tienduong250196@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/TienDuong2501/framgia_my_story",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "font-awesome": "Font-Awesome#^4.7.0"
+  }
+}
+
