@@ -10,6 +10,4 @@ return [
     '2017' => '2017',
     'dasboard' => 'Admin Dashboard',
     'notification' => 'You are logged in as Admin!'
-
-
 ];

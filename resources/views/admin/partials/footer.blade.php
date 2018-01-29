@@ -17,6 +17,10 @@
 {{ Html::script('assets/admin/js/custom.min.js') }}
 {{ Html::script('assets/admin/js/dashboard1.js') }}
 {{ Html::script('assets/admin/plugins/bower_components/toast-master/js/jquery.toast.js') }}
+{{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js') }}
+{{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js') }}
+
+@stack('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
         $.toast({
