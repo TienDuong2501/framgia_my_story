@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostDetailsTable extends Migration
+class reCreateVotingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreatePostDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('postDetails', function (Blueprint $table) {
+        Schema::create('votings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
-            $table->string('title');
-            $table->text('brief');
-            $table->text('body');
-            $table->string('status')->default('pending');
             $table->timestamps();
             $table->foreign('post_id')
                   ->references('id')->on('posts')
+                  ->onDelete('cascade');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
                   ->onDelete('cascade');
         });
     }
@@ -34,6 +34,6 @@ class CreatePostDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_details');
+        Schema::dropIfExists('votings');
     }
 }
