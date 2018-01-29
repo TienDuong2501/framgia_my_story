@@ -12,7 +12,6 @@ yarn-error.log
 .env
 /.framgia-ci-reports
 /public/assets
-/database/migrations
 composer.json
 composer.lock
 mix-manifest.json
