@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use Carbon\Carbon;
+use Auth;
 
 class Post extends Model
 {
@@ -17,7 +19,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function votings()
@@ -34,8 +36,19 @@ class Post extends Model
 
     public function scopeAllPosts($query)
     {
-        return $query->join('users', 'posts.user_id', '=', 'users.id')
-            ->select('posts.*', 'users.*')
-            ->paginate(5);
+        return $query->orderBy('created_at', 'desc')->paginate(config('userConst.paginateHome'));
+    }
+
+    public function scopePostDetail($query, $id)
+    {
+        return $query->find($id);
+    }
+
+    public function scopeGetPendingPost($query)
+    {
+        return $query->where([
+                ['user_id', '=', Auth::user()->id],
+                ['posts.post_status', '=', 'pending'],
+            ])->get();
     }
 }
