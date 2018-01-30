@@ -31,6 +31,23 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function votings()
+    {
+        return $this->hasMany(Voting::class, 'user_id');
+    }
+
+    //----------------------- scope Admin/UserController---------------------
+
     public function scopeFind($query, $id)
     {
         return $query->where('id', '=', $id);

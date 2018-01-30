@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'User\PostController@getAllPost')->name('get-all-post');
+Route::post('/test', 'User\PostController@ajaxAllPost')->name('all-post');
+
 
 Auth::routes();
 
@@ -32,6 +32,10 @@ Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
 	    Route::get('editUser', 'Admin\UserController@showEditForm')->name('show-edit-form');
 	    Route::post('editUser', 'Admin\UserController@editUser')->name('edit-user');
 	});
+});
+
+Route::group(['middleware' => 'auth'],function () {
+	// Route::get('getAllPost', 'User\PostController@getAllPost')->name('get-all-post');
 });
 
 
