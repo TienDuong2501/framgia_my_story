@@ -24,7 +24,25 @@ return [
     'Comment' => 'Comment',
     'ReadMore' => 'ReadMore',
     'signature' => ' 2018 Voting-Page . All Rights Reserved | Design By TienDuong',
-    'comment_placeholder' => 'comment something here...',
+    'Title' => 'Title:',
+    'Sumary' => 'Sumary:',
+    'Image' => 'Image:',
+    'Body' => 'Body:',
+    'Cancel' => 'Cancel',
+    'STT' => 'STT',
+    'Name' => 'Name',
+    'Title' => 'Title',
+    'Body' => 'Body',
+    'Image' => 'Image',
+    'Status' => 'Status',
+    'Create_at' => 'Create_at',
+    'Update_at' => 'Update_at',
+    'Action' => 'Action',
+    'View' => 'View',
+    'Close' => 'Close',
+    'Edit' => 'Edit',
+    'Delete' => 'Delete',
+    'comment_placeholder' => 'Comment somethings here...'
 
 
 

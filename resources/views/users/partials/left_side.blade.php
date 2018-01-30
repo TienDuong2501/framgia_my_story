@@ -1,7 +1,7 @@
 <div class="wrap">
 <div class="left-sidebar">
     <div class="logo">
-        <a href="index.html"><img src="images/logo.png" title="logo" /></a>
+        <a href="index.html"><img src="{{ asset('images/logo.png') }}" title="logo" /></a>
         <h1>{{ trans('user/index.Title_left_side_bar') }}</h1>
     </div>
     <div class="top-nav">

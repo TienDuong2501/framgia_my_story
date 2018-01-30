@@ -231,7 +231,10 @@ img {
     max-width: 100%;
 }
 
-
+.post_interface {
+    width: 200px;
+    height: 150px;
+}
 /*end reset*/
 
 body {
@@ -414,6 +417,16 @@ body {
 
 .comment {
     margin-left: 15px;
+}
+
+.mypost_image {
+    width:70px;
+    height: 50px;
+}
+
+.create_button,.cancel_button {
+    float: right;
+    margin: 0px 5px;
 }
 
 .grid-img-content {

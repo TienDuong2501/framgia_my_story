@@ -11,8 +11,7 @@
 |
 */
 Route::get('/', 'User\PostController@getAllPost')->name('get-all-post');
-Route::post('/test', 'User\PostController@ajaxAllPost')->name('all-post');
-
+Route::get('/paginate', 'User\PostController@ajaxPagination');
 
 Auth::routes();
 
@@ -35,7 +34,10 @@ Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
 });
 
 Route::group(['middleware' => 'auth'],function () {
-	// Route::get('getAllPost', 'User\PostController@getAllPost')->name('get-all-post');
+    Route::get('postDetail/{id}', 'User\PostController@showPostDetail')->name('show-post-detail');
+    Route::get('createPost', 'User\PostController@showPostForm')->name('show-post-form');
+    Route::post('createPost', 'User\PostController@createPost')->name('create-post');
+    Route::get('mypost', 'User\PostController@showMyPost')->name('my-post');
 });
 
 
