@@ -42,8 +42,8 @@ return [
     'Close' => 'Close',
     'Edit' => 'Edit',
     'Delete' => 'Delete',
-    'comment_placeholder' => 'Comment somethings here...'
-
-
-
+    'comment_placeholder' => 'Comment somethings here...',
+    'Update' => 'Update',
+    'Close' => 'Close',
+    'Cancel' => 'Cancel',
 ];

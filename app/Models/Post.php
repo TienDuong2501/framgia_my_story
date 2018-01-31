@@ -51,4 +51,14 @@ class Post extends Model
                 ['posts.post_status', '=', 'pending'],
             ])->get();
     }
+
+    public function scopeGetDetailPendingPost($query, $id)
+    {
+        return $query->find($id);
+    }
+
+    public function scopeDeletePost($query, $id)
+    {
+        return $query->find($id)->delete();
+    }
 }

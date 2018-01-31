@@ -13,7 +13,7 @@
             </div>
             <div class="singlepage">
                 <a href="#"><img src="{{ $postDetail->image }}" /></a>
-                <p>{{ $postDetail->body }}</p>
+                <p>{!! $postDetail->body !!}</p>
                 <div class="clear"> </div>
             </div>
             <div class="comments">
