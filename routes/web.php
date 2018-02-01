@@ -14,12 +14,12 @@ Route::get('/', 'User\PostController@getAllPost')->name('get-all-post');
 Route::get('/paginate', 'User\PostController@ajaxPagination');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
 
     Route::get('/home', 'Admin\UserController@index')->name('admin.home');
+    Route::get('/showPendingPost', 'Admin\PostController@showAllPendingPost')->name('show-pending-post');
     Route::group(['middleware' => 'admin'], function () {
 	    Route::get('getuser', 'Admin\UserController@showUser')->name('show-user');
 	    Route::post('deactiveUser', 'Admin\UserController@deactiveUser')->name('deactive-user');
@@ -30,7 +30,6 @@ Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
 	    Route::post('userSearch', 'Admin\UserController@searchUser')->name('search-user');
 	    Route::get('editUser', 'Admin\UserController@showEditForm')->name('show-edit-form');
 	    Route::post('editUser', 'Admin\UserController@editUser')->name('edit-user');
-	    Route::get('showPendingPost', 'Admin\PostController@showAllPendingPost')->name('show-pending-post');
 	});
 });
 
