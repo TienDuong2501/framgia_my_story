@@ -3,7 +3,7 @@
 {{ Html::script('js/admin.js') }}
 @endpush
 @section('content')
-@include('admin.posts.viewPendingPost')
+@include('admin.posts.viewApprovedPost')
 <div class="container">
     <div class="row">
         <div class="col-md-11">
@@ -42,7 +42,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($pendingPosts as $key => $Post)
+                                @foreach($approvedPost as $key => $Post)
                                     <tr id="{{ $Post->id }}">
                                         <td>{{ $Post->id }}</td>
                                         @if(strlen($Post->user->name) > 20)
@@ -85,14 +85,14 @@
                                         @endif
                                         <td>
                                             <a href="" data="{{ $Post->id }}"
-                                                data-url="{{ route('detail-pending-post') }}"
-                                                class="view_pending_post btn btn-primary">
+                                                data-url="{{ route('detail-approved-post') }}"
+                                                class=" view_approved_post btn btn-primary">
                                             {{ trans('admin/post.View') }}</a>
                                         </td>
-                                        <td>
+                                         <td>
                                             <a href="" data="{{ $Post->id }}"
-                                                data-url="{{ route('delete-pending-post') }}"
-                                                class="delete_post btn btn-primary">
+                                                data-url=""
+                                                class=" delete_post btn btn-primary">
                                             {{ trans('admin/post.Delete') }}</a>
                                         </td>
                                     </tr>
@@ -100,7 +100,7 @@
                             </tbody>
                         </table>
                         <div class="text-center">
-                            {{ $pendingPosts->links() }}
+                            {{ $approvedPost->links() }}
                         </div>
                     </div>
                 </div>

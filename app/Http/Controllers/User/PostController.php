@@ -105,25 +105,25 @@ class PostController extends Controller
                 $file = $request->file($request->image);
                 $file->move(config('userConst.public_path_image'), $file->getClientOriginalName());
                 $url = Url::to('/').'/images/'.$file->getClientOriginalName();
-                Post::where('id', '=', $request->id)->update([ 
+                Post::where('id', '=', $request->id)->update([
                                 'title' => $request->title,
                                 'brief' => $request->sumary,
                                 'image' => $url,
-                                'body' => $request->body]);
+                                'body' => $request->body,
+                            ]);
 
                 return 'the post is updated successfully!';
             } else {
                 Post::where('id', '=', $request->id)
                     ->update([  'title' => $request->title,
                                 'brief' => $request->sumary,
-                                'body' => $request->body]);
+                                'body' => $request->body,
+                            ]);
 
                 return 'the post is updated successfully!';
             }
         } else {
             return 'somethings went wrong. please try again!';
         }
-        
-
     }
 }

@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                {!! Form::submit('Update',['class' => 'btn btn-success pull-left']) !!}
+                {!! Form::submit('Update',['class' => 'btn_update btn btn-success pull-left']) !!}
                 {!! Form::button('Close',['class' => 'btn btn-default', 'data-dismiss' => 'modal']) !!}
                 {!! Form::close() !!}
             </div>

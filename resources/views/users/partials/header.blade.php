@@ -48,8 +48,16 @@
                                                 {{ trans('user/index.Admin') }}
                                             </a>
                                         </li>
-                                        <li><a href="">{{ trans('user/index.Create_Post') }}</a></li>
-                                        <li><a href="">{{ trans('user/index.My_Post') }}</a></li>
+                                        <li>
+                                            <a href="{{ route('show-post-form') }}">
+                                            {{ trans('user/index.Create_Post') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('my-post') }}">
+                                            {{ trans('user/index.My_Post') }}
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
