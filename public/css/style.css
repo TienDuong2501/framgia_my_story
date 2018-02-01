@@ -278,6 +278,10 @@ body {
     font-size: 0.8em;
 }
 
+.err {
+    list-style-type: circle;
+}
+
 .top-nav ul li a {
     color: rgb(80, 80, 80);
     font-weight: bold;
@@ -314,7 +318,7 @@ body {
     background: #fff;
     float: left;
     margin: 0% 0% 0% 1.5%;
-    width: 61%;
+    width: 66%;
     padding: 13px 22px 22px 22px;
 }
 
@@ -636,7 +640,9 @@ body {
 
 
 /*----singlepage----*/
-
+.singlepage {
+    text-align: center
+}
 .singlepage img {
     float: none;
 }
@@ -644,6 +650,7 @@ body {
 .singlepage p {
     float: none;
     width: 100%;
+    text-align: left;
 }
 
 .singlepage1 h3 {

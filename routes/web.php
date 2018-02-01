@@ -30,6 +30,7 @@ Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
 	    Route::post('userSearch', 'Admin\UserController@searchUser')->name('search-user');
 	    Route::get('editUser', 'Admin\UserController@showEditForm')->name('show-edit-form');
 	    Route::post('editUser', 'Admin\UserController@editUser')->name('edit-user');
+	    Route::get('showPendingPost', 'Admin\PostController@showAllPendingPost')->name('show-pending-post');
 	});
 });
 
@@ -37,7 +38,11 @@ Route::group(['middleware' => 'auth'],function () {
     Route::get('postDetail/{id}', 'User\PostController@showPostDetail')->name('show-post-detail');
     Route::get('createPost', 'User\PostController@showPostForm')->name('show-post-form');
     Route::post('createPost', 'User\PostController@createPost')->name('create-post');
-    Route::get('mypost', 'User\PostController@showMyPost')->name('my-post');
+    Route::get('mypost', 'User\PostController@showAllMyPost')->name('my-post');
+    Route::get('viewMyPost', 'User\PostController@viewMyPost')->name('view-my-post');
+    Route::get('editMyPost', 'User\PostController@showMyPostForm')->name('show-mypost-form');
+    Route::post('deletePost', 'User\PostController@deletePost')->name('delete-post');
+    Route::post('editMyPost', 'User\PostController@editMyPost')->name('edit-mypost');
 });
 
 

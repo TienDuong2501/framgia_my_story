@@ -36,16 +36,19 @@ $(document).ready(function () {
             $('#frm-update').find('#id').val(data.id)
             $('#student-update').modal('show')
         });
+         $('#frm-update').on('submit', function (e) {
+            e.preventDefault();
+            var role = $('#role').val();
+            console.log(id);
+            var url = $(this).attr('action');
+            $.post(url,{role : role, id : id}, function (data) {
+                console.log(data);
+                $('td[value=' + data.id + ']').html(data.role);
+                $('#student-update').modal('hide')
+            });
+        });
     });
-    $('#frm-update').on('submit', function (e) {
-        e.preventDefault();
-        var data = $(this).serialize();
-        var url = $(this).attr('action');
-        $.post(url, data, function (data) {
-            $('td[value=' + data.id + ']').html(data.role);
-            $('#student-update').modal('hide')
-        })
-    })
+   
 })
 //-------------------------js trang disable-----------------------
 $(document).ready(function () {

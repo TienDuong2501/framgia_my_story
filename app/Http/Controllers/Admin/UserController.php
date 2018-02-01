@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public static function showUser()
     {
-        $users = User::Order('name')->getDeactiveUser()->PagePagiante();
+        $users = User::GetActiveUser();
 
         return view('admin.user.index', compact('users'));
     }
@@ -28,28 +28,32 @@ class UserController extends Controller
     public function deactiveUser(Request $request)
     {
         if ($request->ajax()) {
-            User::Find($request->id)
-                ->UpdateUser(config('userConst.checkStatusFalse'));
-            $deActiveUser = User::Find($request->id);
+            $deActiveUser = new User();
+            $deActiveUser->UpdateUser(config('userConst.checkStatusFalse'), $request->id);
+            $user = $deActiveUser->find($request->id);
 
-            return response()->json($deActiveUser);
+            return response()->json($user);
+        } else {
+            return response('faile', 'somethings went wrong!');
         }
     }
 
     public function activeUser(Request $request)
     {
         if ($request->ajax()) {
-            User::Find($request->id)
-                ->UpdateUser(config('userConst.checkStatusTrue'));
-            $activeUser = User::Find($request->id);
+            $active = new User();
+            $active->UpdateUser(config('userConst.checkStatusTrue'), $request->id);
+            $user = $active->find($request->id);
 
-            return response()->json($activeUser);
+            return response()->json($user);
+        } else {
+            return response('faile', 'somethings went wrong!');
         }
     }
 
     public function getDeactiveUser()
     {
-        $users = User::GetActiveUser();
+        $users = User::GetDeactiveUser();
 
         return view('admin.user.disableUser', compact('users'));
     }
@@ -60,6 +64,8 @@ class UserController extends Controller
             User::DeleteUser($request->id);
 
             return response(['notificattion' => 'the User is deleted successfully']);
+        } else {
+            return response('faile', 'somethings went wrong!');
         }
     }
 
@@ -77,11 +83,13 @@ class UserController extends Controller
     public function editUser(Request $request)
     {
         if ($request->ajax()) {
-            User::Find($request->id)
-                ->UpdateRole($request->role);
-            $user = User::Find($request->id);
+            $edit = new User();
+            $edit->UpdateRole($request->role, $request->id);
+            $user = $edit->find($request->id);
 
             return response()->json($user);
+        } else {
+            return response('faile', 'somethings went wrong!');
         }
     }
 

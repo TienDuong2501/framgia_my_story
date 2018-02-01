@@ -7,13 +7,12 @@
             </div>
             {!! Form::open(['route' => 'edit-user', 'method' => 'post', 'id' => 'frm-update',
             'enctype' => 'multipart/form-data']) !!}
-            {!! Form::token() !!}
             <div class="modal-body">
                 <div class="col-4-md">
                     <div class="form-group">
                         {!! Form::label('Role') !!}
                         {!! Form::hidden('id', null, ['class' => 'form-control', 'id' => 'id']) !!}
-                        {!! Form::select('role',['' => '-------', 'user' => 'User', 'editor' => 'Editor'],
+                        {!! Form::select('role',['user' => 'User', 'editor' => 'Editor'],
                         null,['class' => 'form-control', 'id' => 'role']) !!}
                     </div>
                 </div>

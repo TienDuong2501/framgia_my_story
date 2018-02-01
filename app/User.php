@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -48,30 +49,19 @@ class User extends Authenticatable
 
     //----------------------- scope Admin/UserController---------------------
 
-    public function scopeFind($query, $id)
-    {
-        return $query->where('id', '=', $id);
-    }
-
-    public function scopePagePagiante($query)
-    {
-        return $query->paginate(config('userConst.paginate'));
-    }
-
-    public function scopeOrder($query, $name)
-    {
-        return $query->orderBy($name, 'asc');
-    }
 
     public function scopeGetDeactiveUser($query)
     {
-        return $query->where('status', '=', config('userConst.checkStatusTrue'));
+        return $query->where('status', '=', config('userConst.checkStatusFalse'))
+                    ->orderBy('name', 'asc')
+                    ->paginate(config('userConst.paginate'));
     }
 
     public function scopeGetActiveUser($query)
     {
-        return $query->where('status', '=', config('userConst.checkStatusFalse'))
-                    ->paginate(config('userConst.checkStatusTrue'));
+        return $query->where('status', '=', config('userConst.checkStatusTrue'))
+                    ->orderBy('name', 'asc')
+                    ->paginate(config('userConst.paginate'));
     }
 
     public function scopeDeleteUser($query, $id)
@@ -79,9 +69,9 @@ class User extends Authenticatable
         return $query->find($id)->delete();
     }
 
-    public function scopeUpdateUser($query, $status)
+    public function scopeUpdateUser($query, $status, $id)
     {
-        return $query->update(['status' => $status]);
+        return $query->where('id', '=', $id)->update(['status' => $status]);
     }
 
     public function scopeAutoCompleteSearch($query, $term)
@@ -94,9 +84,9 @@ class User extends Authenticatable
                     ->paginate(config('userConst.paginate'));
     }
 
-    public function scopeUpdateRole($query, $role)
+    public function scopeUpdateRole($query, $role, $id)
     {
-        return $query->update(['role' => $role]);
+        return $query->where('id', '=', $id)->update(['role' => $role]);
     }
 
     public function scopeSearchUser($query, $keyword)
