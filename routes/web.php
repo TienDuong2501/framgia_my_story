@@ -17,9 +17,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
+    Route::get('/pending-post', 'Admin\PostController@showAllPendingPost');
+    Route::get('/approved-post', 'Admin\PostController@showAllApprovedPost')->name('all-approved-post');
+    Route::get('/detail-approved-post', 'Admin\PostController@detailApprovedPost')->name('detail-approved-post');
+    Route::post('/disapproved-post', 'Admin\PostController@disapprovedPost')->name('disapproved-post');
+    Route::get('/detail-pending-post', 'Admin\PostController@detailPendingPost')->name('detail-pending-post');
+    Route::post('/approve-post', 'Admin\PostController@approvePost')->name('approve-post');
+    Route::post('delete-pending-post', 'Admin\PostController@deletePendingPost')->name('delete-pending-post');
 
     Route::get('/home', 'Admin\UserController@index')->name('admin.home');
-    Route::get('/showPendingPost', 'Admin\PostController@showAllPendingPost')->name('show-pending-post');
     Route::group(['middleware' => 'admin'], function () {
 	    Route::get('getuser', 'Admin\UserController@showUser')->name('show-user');
 	    Route::post('deactiveUser', 'Admin\UserController@deactiveUser')->name('deactive-user');

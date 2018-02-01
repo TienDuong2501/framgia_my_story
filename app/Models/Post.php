@@ -61,4 +61,28 @@ class Post extends Model
     {
         return $query->find($id)->delete();
     }
+
+    public function scopeGetAllPendingPost($query)
+    {
+        return $query->where('posts.post_status', '=', 'pending')
+                    ->paginate(config('userConst.paginate'));
+    }
+
+    public function scopeGetAllApprovedPost($query)
+    {
+        return $query->where('posts.post_status', '=', 'approved')
+                    ->paginate(config('userConst.paginate'));
+    }
+
+    public function scopeApprovePost($query, $id)
+    {
+        return $query->where('id', '=', $id)
+                    ->update(['post_status' => 'approved']);
+    }
+
+    public function scopeUnapprovedPost($query, $id)
+    {
+        return $query->where('id', '=', $id)
+                    ->update(['post_status' => 'pending']);
+    }
 }

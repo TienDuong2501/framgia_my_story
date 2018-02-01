@@ -12,6 +12,7 @@
         {{ Html::style('assets/admin/css/bootstrap.min.css') }}
         {{ Html::style('assets/admin/css/colors/blue-dark.css') }}
         {{ Html::style('assets/admin/css/style.css') }}
+        {{ Html::style('css/admin.css') }}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     </head>
     <body>
