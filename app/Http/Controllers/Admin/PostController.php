@@ -76,9 +76,43 @@ class PostController extends Controller
     public function disapprovedPost(Request $request)
     {
         if ($request->ajax()) {
-            Post::UnapprovedPost($request->id);
+            Post::DisapprovedPost($request->id);
 
             return 'the post is disapprove successfully!';
         }
+    }
+
+    public function deleteApprovedPost(Request $request)
+    {
+        if ($request->ajax()) {
+            Post::DeletePost($request->id);
+
+            return 'the post is deleted successfully!';
+        } else {
+            return 'somethings went wrong here!';
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $term = $request->term;
+        $posts = Post::AutoCompleteSearch($term);
+        if (count($posts) == 0) {
+            $searchResults[] = 'No Post Found';
+        } else {
+            foreach ($posts as $key => $value) {
+                $searchResults[] = $value->title;
+            }
+        }
+
+        return $searchResults;
+    }
+
+    public function searchPost(Request $request)
+    {
+        $keyword = $request->keyword;
+        $results = Post::SearchPost($keyword);
+
+        return view('admin.posts.search_result', compact('results'));
     }
 }

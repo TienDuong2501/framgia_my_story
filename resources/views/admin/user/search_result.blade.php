@@ -2,6 +2,7 @@
 @push('scripts')
     {{ Html::script('js/admin.js') }}
 @endpush
+@section('title', 'Approved-Post')
 @section('content')
 @include('admin.user.editUser')
 <div class="container">

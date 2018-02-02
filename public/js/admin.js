@@ -107,7 +107,7 @@ $(document).ready(function () {
             $('.post_image').attr('src', data.image);
             $('.body_post').html(data.body);
             $('.disapproved').attr('data', id);
-            $('#show-post').modal('show');
+            $('#show_Approved_post').modal('show');
         });
     });
 
@@ -122,7 +122,7 @@ $(document).ready(function () {
             $('#notification').html(function load_notifi() {
                 $.notify(data, "success");
             });
-            $('#show-post').modal('hide');
+            $('#show_Approved_post').modal('hide');
         });
     });
 
@@ -158,7 +158,7 @@ $(document).ready(function () {
             $('.body_post').html(data.body);
             $('.approved').attr('data', id);
             $('.suggest').attr('data', id);
-            $('#show-post').modal('show');
+            $('#show_pending_post').modal('show');
         });
 
         $('#cmt').hide();
@@ -180,7 +180,12 @@ $(document).ready(function () {
             $('#notification').html(function load_notifi() {
                 $.notify(data, "success");
             });
-            $('#show-post').modal('hide');
+            $('#show_pending_post').modal('hide');
         });
+    });
+    var baseUrl = window.location.origin;
+
+    $(".search_for").autocomplete({
+        source: baseUrl + '/admin/search-posts'
     });
 });

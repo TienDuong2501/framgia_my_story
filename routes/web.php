@@ -17,13 +17,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
-    Route::get('/pending-post', 'Admin\PostController@showAllPendingPost');
+    Route::get('/pending-post', 'Admin\PostController@showAllPendingPost')->name('show-all-pending-post');
     Route::get('/approved-post', 'Admin\PostController@showAllApprovedPost')->name('all-approved-post');
     Route::get('/detail-approved-post', 'Admin\PostController@detailApprovedPost')->name('detail-approved-post');
     Route::post('/disapproved-post', 'Admin\PostController@disapprovedPost')->name('disapproved-post');
     Route::get('/detail-pending-post', 'Admin\PostController@detailPendingPost')->name('detail-pending-post');
     Route::post('/approve-post', 'Admin\PostController@approvePost')->name('approve-post');
     Route::post('delete-pending-post', 'Admin\PostController@deletePendingPost')->name('delete-pending-post');
+    Route::post('delete-approved-post', 'Admin\PostController@deleteApprovedPost')->name('delete-approved-post');
+    Route::get('search-posts', 'Admin\PostController@search')->name('search-posts');
+    Route::post('search-post-results', 'Admin\PostController@searchPost')->name('search-post-results');
 
     Route::get('/home', 'Admin\UserController@index')->name('admin.home');
     Route::group(['middleware' => 'admin'], function () {
@@ -48,6 +51,8 @@ Route::group(['middleware' => 'auth'],function () {
     Route::get('editMyPost', 'User\PostController@showMyPostForm')->name('show-mypost-form');
     Route::post('deletePost', 'User\PostController@deletePost')->name('delete-post');
     Route::post('editMyPost', 'User\PostController@editMyPost')->name('edit-mypost');
+    Route::get('search', 'User\PostController@search')->name('user-search-posts');
+    Route::post('search-user-side', 'User\PostController@searchPostUserSide')->name('search-user-side');
 });
 
 

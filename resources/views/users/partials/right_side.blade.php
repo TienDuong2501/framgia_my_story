@@ -1,8 +1,10 @@
 <div class="right-sidebar">
     <div class="search-bar">
-        {!! Form::open(['route' => 'home', 'method' => 'POST']) !!}
-	        {!! Form::text('search', 'search',
-	        ['onfocus' => "this.value = ''", 'onblur' => "if (this.value == '') {this.value = 'Search';}"]) !!}
+        {!! Form::open(['route' => 'search-user-side',
+            'method' => 'POST',
+            'enctype' => 'multipart/form-data']) !!}
+	        {!! Form::text('keyword', old('keyword'),
+	        ['placeholder' => trans('user/index.Search'), 'class' => 'search_for']) !!}
 	        {!! Form::submit('') !!}
         {!! Form::close() !!}
     </div>

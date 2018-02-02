@@ -36,7 +36,9 @@ class Post extends Model
 
     public function scopeAllPosts($query)
     {
-        return $query->orderBy('created_at', 'desc')->paginate(config('userConst.paginateHome'));
+        return $query->where('post_status', '=', 'approved')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(config('userConst.paginateHome'));
     }
 
     public function scopePostDetail($query, $id)
@@ -80,9 +82,45 @@ class Post extends Model
                     ->update(['post_status' => 'approved']);
     }
 
-    public function scopeUnapprovedPost($query, $id)
+    public function scopeDisapprovedPost($query, $id)
     {
         return $query->where('id', '=', $id)
                     ->update(['post_status' => 'pending']);
+    }
+
+    public function scopeAutoCompleteSearch($query, $term)
+    {
+        return $query->where('title', 'LIKE', '%'.$term.'%')
+                    ->orWhere('id', 'LIKE', '%'.$term.'%')
+                    ->orWhere('post_status', 'LIKE', '%'.$term.'%')
+                    ->orWhere('brief', 'LIKE', '%'.$term.'%')
+                    ->paginate(config('userConst.paginate'));
+    }
+
+    public function scopeSearchPost($query, $keyword)
+    {
+        return $query->where('title', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('id', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('post_status', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('brief', 'LIKE', '%'.$keyword.'%')
+                    ->orderBy('id', 'desc')
+                    ->paginate(config('userConst.paginate'));
+    }
+
+    public function scopeAutoCompleteUserSide($query, $term)
+    {
+        return $query->where('title', 'LIKE', '%'.$term.'%')
+                    ->orWhere('id', 'LIKE', '%'.$term.'%')
+                    ->orWhere('brief', 'LIKE', '%'.$term.'%')
+                    ->paginate(config('userConst.paginate'));
+    }
+
+    public function scopeSearchPostUserSide($query, $keyword)
+    {
+        return $query->where('title', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('id', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('brief', 'LIKE', '%'.$keyword.'%')
+                    ->orderBy('id', 'desc')
+                    ->paginate(config('userConst.paginate'));
     }
 }

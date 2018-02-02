@@ -8,7 +8,7 @@
         <meta name="author" content="">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{  asset('admin/plugins/images/favicon.png') }}">
-        <title>@yield('title')</title>
+        <title>Admin | @yield('title')</title>
         {{ Html::style('assets/admin/css/bootstrap.min.css') }}
         {{ Html::style('assets/admin/css/colors/blue-dark.css') }}
         {{ Html::style('assets/admin/css/style.css') }}

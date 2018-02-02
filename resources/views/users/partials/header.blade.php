@@ -9,6 +9,7 @@
         {!! Html::style('css/app.css') !!}
         {!! Html::style('assets/font-awesome/css/font-awesome.css') !!}
         {!! Html::style('css/style.css') !!}
+        {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css') !!}
     </head>
     <body>
         <div id="app">

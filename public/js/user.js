@@ -4,11 +4,6 @@ $.ajaxSetup({
     }
 });
 
-tinymce.init({
-    selector: 'textarea',
-    menubar: false
-});
-
 $(document).ready(function () {
     $('.view_post').on('click', function (e) {
         e.preventDefault();
@@ -25,6 +20,16 @@ $(document).ready(function () {
         });
     });
 
+    var baseUrl = window.location.origin;
+
+    $('.search_for').autocomplete({
+        source: baseUrl + '/search'
+    });
+    
+    tinymce.init({
+        selector: 'textarea',
+        menubar: false
+    });
 
     //------------edit post-------------
 
