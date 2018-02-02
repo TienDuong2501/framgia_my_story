@@ -2,6 +2,7 @@
 @push('scripts')
 {{ Html::script('js/admin.js') }}
 @endpush
+@section('title', 'Approved-Posts')
 @section('content')
 @include('admin.posts.viewApprovedPost')
 <div class="container">
@@ -16,14 +17,14 @@
                         <div class="row">
                         </div>
                         <div id="notification"></div>
-                        {!! Form::open(['route' => 'search-user',
+                        {!! Form::open(['route' => 'search-post-results',
                         'method' => 'post',
                         'enctype' => 'multipart/form-data']) !!}
                         <div class="form-group form-inline" style="float: right">
                             {!! Form::text('keyword', old('keyword'),
                             ['class' => 'search_for form-control',
                             'placeholder' => 'search for...'] ) !!}
-                            {!! Form::submit(null, ['class' => 'btn btn-success']) !!}
+                            {!! Form::submit('Search', ['class' => 'btn btn-success']) !!}
                         </div>
                         {!! Form::close() !!}
                         <table class="table table-striped table-bordered table-hover">
@@ -91,7 +92,7 @@
                                         </td>
                                          <td>
                                             <a href="" data="{{ $Post->id }}"
-                                                data-url=""
+                                                data-url="{{ route('delete-approved-post') }}"
                                                 class=" delete_post btn btn-primary">
                                             {{ trans('admin/post.Delete') }}</a>
                                         </td>

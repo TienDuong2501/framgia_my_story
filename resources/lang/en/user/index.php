@@ -46,4 +46,9 @@ return [
     'Update' => 'Update',
     'Close' => 'Close',
     'Cancel' => 'Cancel',
+    'Search' => 'Search',
+    'No_Post' => 'No Post is found',
+    'Result:' => 'Result:',
+    'singular_result' => 'Post is found',
+    'plural_results' => 'Posts are found',
 ];

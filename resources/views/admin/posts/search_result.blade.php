@@ -2,49 +2,52 @@
 @push('scripts')
 {{ Html::script('js/admin.js') }}
 @endpush
-@section('title', 'Pending-Posts')
+@section('title','Search')
 @section('content')
+@include('admin.posts.viewApprovedPost')
 @include('admin.posts.viewPendingPost')
 <div class="container">
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ trans('admin/user.Title_Index_User') }}
+                    {{ trans('admin/user.result_search') }} {{  count($results) }} {{ trans('admin/user.singular_result_search') }}
                 </div>
                 <div class="panel-body">
                     <div class="white-box">
                         <div class="row">
                         </div>
                         <div id="notification"></div>
-                        {!! Form::open(['route' => 'search-user',
+                        {!! Form::open(['route' => 'search-post-results',
                         'method' => 'post',
                         'enctype' => 'multipart/form-data']) !!}
-                        <div class="form-group form-inline" style="float: right">
-                            {!! Form::text('keyword', old('keyword'),
-                            ['class' => 'search_for form-control',
-                            'placeholder' => 'search for...'] ) !!}
-                            {!! Form::submit('Search', ['class' => 'btn btn-success']) !!}
-                        </div>
+                            {!! Form::token() !!}
+                            <div class="form-group form-inline" style="float: right">
+                                {!! Form::text('keyword', old('keyword'),
+                                ['class' => 'search_for form-control',
+                                'placeholder' => trans('admin/user.placeholder')] ) !!}
+                                {!! Form::submit('Search', ['class' => 'btn btn-success']) !!}
+                            </div>
                         {!! Form::close() !!}
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>{{ trans('admin/post.ID') }}</th>
-                                    <th>{{ trans('admin/post.Name') }}</th>
-                                    <th>{{ trans('admin/post.Title') }}</th>
-                                    <th>{{ trans('admin/post.Sumary') }}</th>
-                                    <th>{{ trans('admin/post.Body') }}</th>
-                                    <th>{{ trans('admin/post.Image') }}</th>
-                                    <th>{{ trans('admin/post.Status') }}</th>
-                                    <th>{{ trans('admin/post.Create_at') }}</th>
-                                    <th>{{ trans('admin/post.Update_at') }}</th>
-                                    <th colspan="2">{{ trans('admin/post.Action') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($pendingPosts as $key => $Post)
-                                    <tr id="{{ $Post->id }}">
+                        @if(count($results) != 0)
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{{ trans('admin/post.ID') }}</th>
+                                        <th>{{ trans('admin/post.Name') }}</th>
+                                        <th>{{ trans('admin/post.Title') }}</th>
+                                        <th>{{ trans('admin/post.Sumary') }}</th>
+                                        <th>{{ trans('admin/post.Body') }}</th>
+                                        <th>{{ trans('admin/post.Image') }}</th>
+                                        <th>{{ trans('admin/post.Status') }}</th>
+                                        <th>{{ trans('admin/post.Create_at') }}</th>
+                                        <th>{{ trans('admin/post.Update_at') }}</th>
+                                        <th colspan="2">{{ trans('admin/post.Action') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($results as $key => $Post)
+                                        <tr id="{{ $Post->id }}">
                                         <td>{{ $Post->id }}</td>
                                         @if(strlen($Post->user->name) > 20)
                                             <td>{{ $substr = substr($Post->user->name,0,10).'...' }}</td>
@@ -84,25 +87,42 @@
                                         @else
                                             <td>{{ $Post->updated_at }}</td>
                                         @endif
+                                        @if($Post->post_status == 'approved')
                                         <td>
+
                                             <a href="" data="{{ $Post->id }}"
-                                                data-url="{{ route('detail-pending-post') }}"
-                                                class="view_pending_post btn btn-primary">
+                                                data-url="{{ route('detail-approved-post') }}"
+                                                class=" view_approved_post btn btn-primary">
                                             {{ trans('admin/post.View') }}</a>
                                         </td>
-                                        <td>
+                                         <td>
                                             <a href="" data="{{ $Post->id }}"
-                                                data-url="{{ route('delete-pending-post') }}"
-                                                class="delete_post btn btn-primary">
+                                                data-url="{{ route('delete-approved-post') }}"
+                                                class=" delete_post btn btn-primary">
                                             {{ trans('admin/post.Delete') }}</a>
                                         </td>
+                                        @else
+                                            <td>
+                                                <a href="" data="{{ $Post->id }}"
+                                                    data-url="{{ route('detail-pending-post') }}"
+                                                    class="view_pending_post btn btn-primary">
+                                                {{ trans('admin/post.View') }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="" data="{{ $Post->id }}"
+                                                    data-url="{{ route('delete-pending-post') }}"
+                                                    class="delete_post btn btn-primary">
+                                                {{ trans('admin/post.Delete') }}</a>
+                                            </td>
+                                        @endif
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <div class="text-center">
-                            {{ $pendingPosts->links() }}
-                        </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                {{ $results->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

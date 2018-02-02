@@ -2,13 +2,28 @@
 @section('content')
 
 @push('script')
-
 {!! Html::script('js/user.js') !!}
-
 @endpush
 <div class="content">
+    <div class="panel panel-header">
+        @if(count($results) == 0)
+            <h3 class=" search_result alert alert-warning">
+                {{ trans('user/index.No_Post') }}
+            </h3>
+        @elseif(count($results) == 1)
+            <h3 class=" search_result alert alert-success">
+                {{ trans('user/index.Result:') }} {{ count($results) }}
+                {{ trans('user/index.singular_result') }}
+            </h3>
+        @else
+            <h3 class=" search_result alert alert-success">
+                {{ trans('user/index.Result:') }} {{ count($results) }}
+                {{ trans('user/index.plural_results') }}
+            </h3>
+        @endif
+    </div>
     <div class="grids">
-        @foreach($posts as $post)
+        @foreach($results as $post)
         <div class="grid box">
             <div class="grid-header">
                 <h3>{{ $post->title }} </h3>
@@ -55,7 +70,7 @@
         <div class="clear"> </div>
         @endforeach
         <div class="clear"> </div>
-    	{{ $posts->links() }}
+    	{{ $results->links() }}
     </div>
     
     <div class="clear"> </div>

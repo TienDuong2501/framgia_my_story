@@ -1,8 +1,8 @@
 @extends('users.layouts.main')
 @section('content')
 @push('script')
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea', menubar : false });</script>
+{!! Html::script('https://cloud.tinymce.com/stable/tinymce.min.js') !!}
+{!! Html::script('js/user.js') !!}
 @endpush
 <div class="content">
     <div class="grids">

@@ -126,4 +126,27 @@ class PostController extends Controller
             return 'somethings went wrong. please try again!';
         }
     }
+
+    public function search(Request $request)
+    {
+        $term = $request->term;
+        $posts = Post::AutoCompleteUserSide($term);
+        if (count($posts) == 0) {
+            $searchResults[] = 'No Post Found';
+        } else {
+            foreach ($posts as $key => $value) {
+                $searchResults[] = $value->title;
+            }
+        }
+
+        return $searchResults;
+    }
+
+    public function searchPostUserSide(Request $request)
+    {
+        $keyword = $request->keyword;
+        $results = Post::SearchPostUserSide($keyword);
+
+        return view('users.posts.search_user_side', compact('results'));
+    }
 }
