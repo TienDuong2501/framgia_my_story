@@ -7,32 +7,40 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Url;
 use App\Http\Requests\StorePostTable;
+use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\User;
 use Purifier;
+use App\Models\Voting;
+use App\Models\Comment;
 use Auth;
 
 class PostController extends Controller
 {
     public function getAllPost()
     {
-        $posts = Post::AllPosts();
+        $posts = Post::with(['votings', 'comments'])->allPosts();
+        if (Auth::check()) {
+            $checkVotings = Voting::userVote(Auth::user()->id)->get();
+
+            return view('users.index', compact('posts', 'checkVotings'));
+        }
 
         return view('users.index', compact('posts'));
     }
 
-    public function ajaxPagination()
-    {
-        $posts = Post::AllPosts();
-
-        return view('users.post', compact('posts'));
-    }
-
     public function showPostDetail($id)
     {
-        $postDetail = Post::PostDetail($id);
+        $postDetail = Post::with(['votings', 'comments'])->postDetail($id);
+        if (Auth::check()) {
+            $checkVoting = Voting::checkVoting($id, Auth::user()->id)->first();
+            $comments = Comment::getComments($id);
 
-        return view('users.posts.postDetail', compact('postDetail'));
+            return view('users.posts.postDetail', compact('postDetail', 'checkVoting', 'comments'));
+        }
+        $comments = Comment::getComments($id);
+
+        return view('users.posts.postDetail', compact('postDetail', 'comments'));
     }
 
     public function showPostForm()
@@ -62,45 +70,53 @@ class PostController extends Controller
 
     public function showAllMyPost()
     {
-        $myPost = Post::GetPendingPost();
+        $myPost = Post::getPendingPost();
 
         return view('users.posts.mypost', compact('myPost'));
     }
 
     public function viewMyPost(Request $request)
     {
-        if ($request->ajax()) {
-            $mypost = Post::GetDetailPendingPost($request->id);
+        try {
+            $mypost = Post::getDetailPendingPost($request->id);
 
             return response($mypost);
+        } catch (Exception $e) {
+            Log::error($e);
+            
+            return Back()->withErrors(trans('user/index.fail'));
         }
-        return 'somethings went wrong here!';
     }
 
     public function showMyPostForm(Request $request)
     {
-        if ($request->ajax()) {
-            $mypost = Post::GetDetailPendingPost($request->id);
+        try {
+            $mypost = Post::getDetailPendingPost($request->id);
 
             return response($mypost);
+        } catch (Exception $e) {
+            Log::error($e);
+            
+            return Back()->withErrors(trans('user/index.fail'));
         }
-         return 'somethings went wrong here!';
     }
 
     public function deletePost(Request $request)
     {
-        if ($request->ajax()) {
-            Post::DeletePost($request->id);
+        try {
+            Post::deletePost($request->id);
 
             return 'the Post is deleted successfully';
-        } else {
-            return 'somethings went wrong';
+        } catch (Exception $e) {
+            Log::error($e);
+            
+            return Back()->withErrors(trans('user/index.fail'));
         }
     }
 
     public function editMyPost(Request $request)
     {
-        if ($request->ajax()) {
+        try {
             if ($request->hasFile($request->image)) {
                 $file = $request->file($request->image);
                 $file->move(config('userConst.public_path_image'), $file->getClientOriginalName());
@@ -122,15 +138,17 @@ class PostController extends Controller
 
                 return 'the post is updated successfully!';
             }
-        } else {
-            return 'somethings went wrong. please try again!';
+        } catch (Exception $e) {
+            Log::error($e);
+            
+            return Back()->withErrors(trans('user/index.fail'));
         }
     }
 
     public function search(Request $request)
     {
         $term = $request->term;
-        $posts = Post::AutoCompleteUserSide($term);
+        $posts = Post::autoCompleteUserSide($term);
         if (count($posts) == 0) {
             $searchResults[] = 'No Post Found';
         } else {
@@ -145,7 +163,7 @@ class PostController extends Controller
     public function searchPostUserSide(Request $request)
     {
         $keyword = $request->keyword;
-        $results = Post::SearchPostUserSide($keyword);
+        $results = Post::searchPostUserSide($keyword);
 
         return view('users.posts.search_user_side', compact('results'));
     }

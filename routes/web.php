@@ -43,7 +43,6 @@ Route::group(['middleware' => ['editor'], 'prefix' => 'admin'], function () {
 });
 
 Route::group(['middleware' => 'auth'],function () {
-    Route::get('postDetail/{id}', 'User\PostController@showPostDetail')->name('show-post-detail');
     Route::get('createPost', 'User\PostController@showPostForm')->name('show-post-form');
     Route::post('createPost', 'User\PostController@createPost')->name('create-post');
     Route::get('mypost', 'User\PostController@showAllMyPost')->name('my-post');
@@ -51,9 +50,17 @@ Route::group(['middleware' => 'auth'],function () {
     Route::get('editMyPost', 'User\PostController@showMyPostForm')->name('show-mypost-form');
     Route::post('deletePost', 'User\PostController@deletePost')->name('delete-post');
     Route::post('editMyPost', 'User\PostController@editMyPost')->name('edit-mypost');
+    Route::post('like-post', 'User\VotingController@like')->name('like-post');
+    Route::post('comment-post', 'User\CommentController@comment')->name('comment-post');
+    Route::get('edit-comment', 'User\CommentController@showFormEditComment')->name('show-form-edit-comment');
+    Route::post('edit-comment', 'User\CommentController@editComment')->name('edit-comment');
+    Route::post('delete-comment', 'User\CommentController@deleteComment')->name('delete-comment');
+});
+
+    Route::get('postDetail/{id}', 'User\PostController@showPostDetail')->name('show-post-detail');
     Route::get('search', 'User\PostController@search')->name('user-search-posts');
     Route::post('search-user-side', 'User\PostController@searchPostUserSide')->name('search-user-side');
-});
+
 
 
 

@@ -34,19 +34,19 @@ class Post extends Model
 
     //-----------------------scope Posts---------------------
 
-    public function scopeAllPosts($query)
+    public function scopeallPosts($query)
     {
         return $query->where('post_status', '=', 'approved')
                     ->orderBy('created_at', 'desc')
                     ->paginate(config('userConst.paginateHome'));
     }
 
-    public function scopePostDetail($query, $id)
+    public function scopepostDetail($query, $id)
     {
         return $query->find($id);
     }
 
-    public function scopeGetPendingPost($query)
+    public function scopegetPendingPost($query)
     {
         return $query->where([
                 ['user_id', '=', Auth::user()->id],
@@ -54,12 +54,12 @@ class Post extends Model
             ])->get();
     }
 
-    public function scopeGetDetailPendingPost($query, $id)
+    public function scopegetDetailPendingPost($query, $id)
     {
         return $query->find($id);
     }
 
-    public function scopeDeletePost($query, $id)
+    public function scopedeletePost($query, $id)
     {
         return $query->find($id)->delete();
     }
@@ -107,7 +107,7 @@ class Post extends Model
                     ->paginate(config('userConst.paginate'));
     }
 
-    public function scopeAutoCompleteUserSide($query, $term)
+    public function scopeautoCompleteUserSide($query, $term)
     {
         return $query->where('title', 'LIKE', '%'.$term.'%')
                     ->orWhere('id', 'LIKE', '%'.$term.'%')
@@ -115,7 +115,7 @@ class Post extends Model
                     ->paginate(config('userConst.paginate'));
     }
 
-    public function scopeSearchPostUserSide($query, $keyword)
+    public function scopesearchPostUserSide($query, $keyword)
     {
         return $query->where('title', 'LIKE', '%'.$keyword.'%')
                     ->orWhere('id', 'LIKE', '%'.$keyword.'%')

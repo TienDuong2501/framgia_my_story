@@ -51,4 +51,10 @@ return [
     'Result:' => 'Result:',
     'singular_result' => 'Post is found',
     'plural_results' => 'Posts are found',
+    'Edit_Comment' => 'Edit Comment',
+    'failed_comment' => 'Comment failed!',
+    'edit_comment_failed' => 'Edit Comment failed!',
+    'delete_comment_failed' => 'Delete Comment failed!',
+    'fail' => 'failed!',
+
 ];
